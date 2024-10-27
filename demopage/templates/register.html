@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        a{
+            text-decoration: none;
+        }
+        #back{
+            height: 50px;
+            width: 100px;
+            background: darkgrey;
+            color: black;
+            font-size: larger;
+        }
+    </style>
+</head>
+<body>
+    <h1>Register yourself for furthur process!!!</h1>
+    <form method="post">
+        {% csrf_token %}
+       {% for field in form %}
+            <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% for error in field.errors %}
+                    <span class="error">{{ error }}</span><br>
+                {% endfor %}
+            </p>
+        {% endfor %} 
+        <button type="submit">Register</button>
+    </form>
+    <a href="/" id="back">Back</a>
+</body>
+</html>
