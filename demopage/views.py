@@ -29,20 +29,22 @@ def login(request):
         return render(request,'login.html',{'form':form})
  
 def register(request):
-    if(request.user.is_authenticated):
+    if request.user.is_authenticated:
         return redirect('/')
-    if(request.method == "POST"):
+    if request.method == "POST":
         form = UserCreationForm(request.POST)
-        if(form.is_valid()):
+        if form.is_valid():
             form.save()
             un = form.cleaned_data.get('username')
             pw = form.cleaned_data.get('password1')
-            authenticate(username=un,password=pw)
+            authenticate(username=un, password=pw)
             return redirect('/login')
+        else:
+            return render(request, 'register.html', {'form': form})
     else:
         form = UserCreationForm()
-        #UserCreationForm() is used to create a basic registration page with username, password and confirm password
-    return render(request,'register.html',{'form':form})
+        # UserCreationForm() is used to create a basic registration page with username, password, and confirm password
+        return render(request, 'register.html', {'form': form})
    
 def profile(request):
     return render(request,'profile.html')
