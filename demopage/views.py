@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import authenticate
+import base64
  
 # Create your views here.
 def home(request):
@@ -46,5 +47,24 @@ def register(request):
         # UserCreationForm() is used to create a basic registration page with username, password, and confirm password
         return render(request, 'register.html', {'form': form})
    
+"""def profile(request):
+    if(request.method=="POST"):
+        if(request.FILES.get('uploadImage')):
+            img_name = request.FILES['uploadImage']
+            # create a variable for our FileSystem package
+            fs = FileSystemStorage()
+            filename = fs.save(img_name.name,img_name)
+            #urls
+            img_url = fs.url(filename)
+            return render(request,'profile.html',{'img':img_url})
+    else:
+        return render(request,'profile.html')"""
+
 def profile(request):
-    return render(request,'profile.html')
+    if request.method == "POST":
+        if request.FILES.get('uploadImage'):
+            img_name = request.FILES['uploadImage'].read()
+            encode = base64.b64encode(img_name).decode('utf-8')
+            img_url = f"data:image/jpeg;base64,{encode}"
+            return render(request, 'profile.html', {'img': img_url})
+    return render(request, 'profile.html')
