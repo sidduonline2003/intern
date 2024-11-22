@@ -64,10 +64,20 @@
             <button type="submit">Submit</button>
         </form>
         <hr>
-        <div class="image-preview">
+        <hr>
+        <div>
             {% if img %}
-                <img id="uploadedImage" src="{{ img }}" alt="No Image loaded" height="500px" width="500px">
-                <div id="imageDimensions" class="dimensions"></div>
+                <img src="{{img}}" alt="No Image loaded" height="500px" width="500px">
             {% endif %}
         </div>
+        <hr>
+        <div>
+            <h2>Skin Disease Result:</h2>
+            {% if obj1 %}
+            <h3>{{ obj1 }}</h3>
+            {% endif %}
+        </div>
+       
+    </body>
+    </html>
     </div>
