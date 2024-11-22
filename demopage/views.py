@@ -2,6 +2,9 @@ from django.shortcuts import render,redirect,HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth import authenticate
 import base64
+from joblib import load
+import cv2
+import numpy as np
  
 # Create your views here.
 def home(request):
@@ -60,11 +63,10 @@ def register(request):
     else:
         return render(request,'profile.html')"""
 
-def profile(request):
+"""def profile(request):
     if request.method == "POST":
         if request.FILES.get('uploadImage'):
             img_name = request.FILES['uploadImage'].read()
             encode = base64.b64encode(img_name).decode('utf-8')
             img_url = f"data:image/jpeg;base64,{encode}"
-            return render(request, 'profile.html', {'img': img_url})
-    return render(request, 'profile.html')
+            return render(request, 'profile.html', {'i
